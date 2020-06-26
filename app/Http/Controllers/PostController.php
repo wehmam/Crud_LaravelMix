@@ -17,7 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        // melempar ke homepage datanya
+        return Post::all();
     }
 
     /**

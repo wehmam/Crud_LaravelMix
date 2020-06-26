@@ -17,10 +17,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Laravel Mix with VueJs</td>
-                        <td>Penjalasan Konsep laravel mix</td>
+                    <tr v-for="post of posts">
+                        <td>{{post.id}}</td>
+                        <td>{{post.title}}</td>
+                        <td>{{post.description}}</td>
                         <td>
                             <button class="btn btn-info">Lihat</button>
                         </td>
@@ -39,3 +39,24 @@
     </div>
 </template>
 
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      posts: [],
+      errors: []
+    }
+  },
+  created() {
+    axios.get(`/posts`)
+    .then(response => {
+      this.posts = response.data
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
+  }
+}
+</script>
