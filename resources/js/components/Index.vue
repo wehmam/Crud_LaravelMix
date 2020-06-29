@@ -1,5 +1,7 @@
 <template>
     <div class="card">
+         <h1 class="display-4 text-center mt-3">Daftar Buku Programmer!</h1>
+                <p class="text-center mb-3">Daftar Buku web programming</p> 
         <div class="card-header">
             <router-link to="/create" class="btn btn-primary float-right">Tambah Buku</router-link>
         </div>
@@ -17,15 +19,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="post of posts">
+                    <tr v-for="post in posts">
                         <td>{{post.id}}</td>
                         <td>{{post.title}}</td>
                         <td>{{post.description}}</td>
                         <td>
-                            <button class="btn btn-info">Lihat</button>
+                            <router-link :to="{ name: 'readPost', params: { id: post.id } }" class="btn btn-info">Lihat</router-link>
                         </td>
                         <td>
-                            <button class="btn btn-success">Edit</button>
+                            <router-link :to="{name: 'editPost', params:{id: post.id} }" class="btn btn-success">Edit</router-link>
                         </td>
                         <td>
                             <form action="">
