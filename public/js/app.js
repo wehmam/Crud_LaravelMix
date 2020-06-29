@@ -2026,8 +2026,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2044,6 +2042,21 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (e) {
       _this.errors.push(e);
     });
+  },
+  methods: {
+    postDestroy: function postDestroy(id, index) {
+      var _this2 = this;
+
+      if (confirm("apakah anda yakin ingin menghapus buku ini?")) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/posts/' + id, this.posts).then(function (response) {
+          console.log(response);
+
+          _this2.posts.splice(index, 1);
+        })["catch"](function (e) {
+          _this2.errors.push(e);
+        });
+      }
+    }
   }
 });
 
@@ -37870,7 +37883,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.posts, function(post) {
+          _vm._l(_vm.posts, function(post, index) {
             return _c("tr", [
               _c("td", [_vm._v(_vm._s(post.id))]),
               _vm._v(" "),
@@ -37912,7 +37925,20 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._m(1, true)
+              _c("td", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    on: {
+                      click: function($event) {
+                        return _vm.postDestroy(post.id, index)
+                      }
+                    }
+                  },
+                  [_vm._v("Hapus")]
+                )
+              ])
             ])
           }),
           0
@@ -37939,16 +37965,6 @@ var staticRenderFns = [
         _c("th", { attrs: { width: "100" } }),
         _vm._v(" "),
         _c("th", { attrs: { width: "100" } })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("form", { attrs: { action: "" } }, [
-        _c("button", { staticClass: "btn btn-danger" }, [_vm._v("Hapus")])
       ])
     ])
   }

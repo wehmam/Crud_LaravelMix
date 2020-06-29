@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="post in posts">
+                    <tr v-for="post,index in posts">
                         <td>{{post.id}}</td>
                         <td>{{post.title}}</td>
                         <td>{{post.description}}</td>
@@ -30,9 +30,7 @@
                             <router-link :to="{name: 'editPost', params:{id: post.id} }" class="btn btn-success">Edit</router-link>
                         </td>
                         <td>
-                            <form action="">
-                                <button class="btn btn-danger">Hapus</button>
-                            </form>
+                            <button class="btn btn-danger" v-on:click="postDestroy(post.id,index)">Hapus</button>
                         </td>
                     </tr>
                 </tbody>
@@ -59,6 +57,21 @@ export default {
     .catch(e => {
       this.errors.push(e)
     })
-  }
+  },
+  methods:{
+        postDestroy(id,index){
+            if(confirm("apakah anda yakin ingin menghapus buku ini?")){
+                axios.delete('/posts/'+ id, this.posts)
+                .then(response => {
+                    console.log(response)
+                    this.posts.splice(index,1)
+                })
+                .catch(e => {
+                    this.errors.push(e)
+                })
+            }
+        
+        }
+    }
 }
 </script>
